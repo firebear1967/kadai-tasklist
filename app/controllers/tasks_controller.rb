@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.order(id: :desc).page(params[:page]).per(5)
   end
 
   def show
@@ -57,5 +57,5 @@ end
 
 # Strong Parameter
 def task_params
-  params.require(:task).permit(:content)
+  params.require(:task).permit(:content, :status)
 end
